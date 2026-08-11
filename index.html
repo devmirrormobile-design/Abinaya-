@@ -1,130 +1,581 @@
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-<meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Abinaya</title>
-        <link rel="stylesheet" href="styles.css">
-         <link rel="icon" href="img/port.png">
-    </head>
-    <body>
-         
-        <nav class="border-b">
-<div class="name">portfolio</div>
-<ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abinaya · Web & App Developer</title>
+  <meta name="description" content="Portfolio of Abinaya — B.E. Computer Science Engineering student, passionate Web & Mobile App Developer crafting clean, modern digital experiences." />
+  <meta name="keywords" content="Abinaya, web developer, app developer, Flutter, portfolio, Chennai, CSE" />
+  <link rel="icon" href="img/port.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <li><a href="#home">Home</a></li>
-  <li><a href="#about">About</a></li>
-  <li><a href="#skills">Skills</a></li>
-  <li><a href="#contact">Contact</a></li>
-  <li><a href="cv.pdf" download class="download-btn">Download CV</a></li>
+  <style>
+    :root {
+      --bg-base:        #0A0D14;
+      --bg-surface:     #0D1117;
+      --glass-bg:       rgba(255, 255, 255, 0.03);
+      --glass-border:   rgba(255, 255, 255, 0.08);
+      --glass-hover:    rgba(255, 255, 255, 0.06);
+      --cyan:           #00D2FF;
+      --cyan-dim:       rgba(0, 210, 255, 0.15);
+      --text-primary:   #F0F4FF;
+      --text-secondary: #8892A4;
+      --text-muted:     #4E5668;
+      --radius-sm:      8px;
+      --radius-md:      12px;
+      --radius-lg:      20px;
+      --transition:     all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --font:           'Inter', system-ui, -apple-system, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background-color: var(--bg-base); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-base); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan-dim); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
 
-</ul>
-</nav>
-<section id="home">
-<section class="hero">
-    <div class="hero-text">
-        <h1><strong>Hello, I'm</strong><br><strong>Abinaya</strong></h1>
-        <h2>And I'm a <strong> Web Developer</strong>
-        </h2>
-        <p>Passionate developer with focus on modern UI and user experience transforming ideas into responsive Website.</p>
-        <div class="buttons">
-  <a href="mailto:abinbala2005@gmail.com" class="btn btn-primary no-glass">Hire Me</a>
-  <a href="tel:+91 9445586014" class="btn btn-three btn-contact-white no-glass">Contact Me</a>
+    /* Orbs */
+    .bg-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.18; }
+    .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, #00D2FF 0%, transparent 70%); top: -200px; left: -200px; animation: floatOrb 20s ease-in-out infinite alternate; }
+    .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, #0066FF 0%, transparent 70%); bottom: -100px; right: -100px; animation: floatOrb 25s ease-in-out infinite alternate-reverse; }
+    .orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, #00FF94 0%, transparent 70%); top: 50%; left: 50%; opacity: 0.08; animation: floatOrb 30s ease-in-out infinite alternate; }
+    @keyframes floatOrb { 0% { transform: translate(0,0); } 100% { transform: translate(60px,40px); } }
+    .page-wrap { position: relative; z-index: 1; }
 
+    /* Nav */
+    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 70px; background: rgba(10,13,20,0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--glass-border); transition: var(--transition); }
+    #navbar.scrolled { background: rgba(10,13,20,0.92); box-shadow: 0 8px 40px rgba(0,0,0,0.4); }
+    .nav-logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; color: var(--text-primary); text-decoration: none; }
+    .nav-logo span { color: var(--cyan); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; transition: var(--transition); position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--cyan); border-radius: 99px; transition: width 0.3s ease; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-cta { padding: 0.5rem 1.2rem; border: 1.5px solid var(--cyan); border-radius: var(--radius-sm); color: var(--cyan); font-weight: 600; font-size: 0.85rem; text-decoration: none; background: transparent; white-space: nowrap; transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; }
+    .nav-cta:hover { background: var(--cyan); color: var(--bg-base); box-shadow: 0 0 18px rgba(0,210,255,0.4); }
+    .nav-cta::after { display: none; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: var(--transition); }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; background: rgba(10,13,20,0.97); backdrop-filter: blur(24px); padding: 1.5rem 5%; border-bottom: 1px solid var(--glass-border); z-index: 999; flex-direction: column; gap: 1rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { text-decoration: none; color: var(--text-secondary); font-size: 1rem; font-weight: 500; padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border); transition: var(--transition); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--cyan); padding-left: 8px; }
+
+    /* Shared */
+    .section { padding: 100px 5% 80px; }
+    .section-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.75rem; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.15; color: var(--text-primary); margin-bottom: 0.5rem; }
+    .section-subtitle { color: var(--text-secondary); font-size: 1rem; max-width: 520px; }
+    .section-header { margin-bottom: 3rem; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.6rem; border-radius: var(--radius-sm); font-family: var(--font); font-size: 0.9rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: var(--transition); border: none; white-space: nowrap; }
+    .btn-cyan { background: linear-gradient(135deg, #00D2FF 0%, #0099CC 100%); color: #0A0D14; box-shadow: 0 4px 20px rgba(0,210,255,0.3); }
+    .btn-cyan:hover { box-shadow: 0 6px 30px rgba(0,210,255,0.55); transform: translateY(-2px); }
+    .btn-ghost { background: var(--glass-bg); color: var(--text-primary); border: 1px solid var(--glass-border); }
+    .btn-ghost:hover { background: var(--glass-hover); border-color: rgba(0,210,255,0.3); box-shadow: 0 0 20px rgba(0,210,255,0.1); }
+
+    /* Hero */
+    #hero { min-height: 100vh; display: flex; align-items: center; padding: 0 5%; padding-top: 80px; }
+    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; }
+    .status-pill { display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(0,255,148,0.08); border: 1px solid rgba(0,255,148,0.25); border-radius: 99px; padding: 0.4rem 1rem; font-size: 0.78rem; font-weight: 600; color: #00FF94; letter-spacing: 0.5px; margin-bottom: 1.5rem; }
+    .status-dot { width: 8px; height: 8px; background: #00FF94; border-radius: 50%; animation: pulse-green 2s ease-in-out infinite; }
+    @keyframes pulse-green { 0%,100% { box-shadow: 0 0 0 0 rgba(0,255,148,0.6); } 50% { box-shadow: 0 0 0 6px rgba(0,255,148,0); } }
+    .hero-greeting { font-size: 1rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 0.4rem; }
+    .hero-name { font-size: clamp(2.5rem,6vw,4.5rem); font-weight: 800; line-height: 1.05; margin-bottom: 1rem; background: linear-gradient(135deg,#F0F4FF 0%,#00D2FF 60%,#0066FF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; }
+    .hero-sub { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.7; max-width: 480px; margin-bottom: 2.5rem; }
+    .hero-sub strong { color: var(--cyan); font-weight: 600; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .hero-badges { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.82rem; font-weight: 500; text-decoration: none; padding: 0.4rem 0.9rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 99px; transition: var(--transition); }
+    .hero-badge i { color: var(--cyan); font-size: 0.75rem; }
+    .hero-badge:hover { border-color: var(--cyan); color: var(--text-primary); }
+    .hero-visual { display: flex; justify-content: center; align-items: center; }
+    .profile-frame { position: relative; width: 320px; height: 320px; }
+    .profile-ring { position: absolute; inset: -3px; border-radius: 50%; background: conic-gradient(from 0deg,#00D2FF,#0066FF,#00FF94,#00D2FF); animation: spin-ring 8s linear infinite; z-index: 0; }
+    @keyframes spin-ring { to { transform: rotate(360deg); } }
+    .profile-ring-mask { position: absolute; inset: 4px; background: var(--bg-base); border-radius: 50%; z-index: 1; }
+    .profile-img-wrap { position: absolute; inset: 8px; border-radius: 50%; overflow: hidden; z-index: 2; transition: var(--transition); }
+    .profile-img-wrap:hover img { transform: scale(1.07); }
+    .profile-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .profile-badge { position: absolute; background: var(--bg-surface); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 0.5rem 0.85rem; font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; gap: 0.4rem; z-index: 3; backdrop-filter: blur(12px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); animation: float-badge 4s ease-in-out infinite alternate; }
+    .profile-badge i { color: var(--cyan); }
+    .profile-badge-1 { top: 10%; right: -15%; animation-delay: 0s; }
+    .profile-badge-2 { bottom: 10%; left: -18%; animation-delay: 1.5s; }
+    @keyframes float-badge { from { transform: translateY(0px); } to { transform: translateY(-8px); } }
+
+    /* Experience */
+    #experience { background: var(--bg-surface); }
+    .timeline-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .timeline-col-title { display: flex; align-items: center; gap: 0.6rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cyan); margin-bottom: 1.25rem; }
+    .timeline-item { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 1.4rem 1.6rem; margin-bottom: 1rem; position: relative; transition: var(--transition); overflow: hidden; }
+    .timeline-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg,var(--cyan),#0066FF); border-radius: 3px 0 0 3px; opacity: 0; transition: opacity 0.3s ease; }
+    .timeline-item:hover::before { opacity: 1; }
+    .timeline-item:hover { background: var(--glass-hover); border-color: rgba(0,210,255,0.2); transform: translateX(4px); }
+    .tl-date { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; font-weight: 600; color: var(--cyan); background: var(--cyan-dim); border-radius: 99px; padding: 0.2rem 0.7rem; margin-bottom: 0.6rem; }
+    .tl-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.2rem; }
+    .tl-org { font-size: 0.82rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.75rem; }
+    .tl-org i { color: var(--cyan); margin-right: 0.3rem; }
+    .tl-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tl-bullets li { font-size: 0.83rem; color: var(--text-secondary); padding-left: 1rem; position: relative; line-height: 1.5; }
+    .tl-bullets li::before { content: '\2192'; position: absolute; left: 0; color: var(--cyan); font-size: 0.75rem; }
+
+    /* Skills */
+    .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .skill-category-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 1.8rem; transition: var(--transition); }
+    .skill-category-card:hover { border-color: rgba(0,210,255,0.25); background: var(--glass-hover); box-shadow: 0 0 30px rgba(0,210,255,0.06); transform: translateY(-3px); }
+    .skill-cat-icon { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; background: var(--cyan-dim); border-radius: var(--radius-sm); font-size: 1.1rem; color: var(--cyan); margin-bottom: 1rem; }
+    .skill-cat-name { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1.1rem; }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .chip { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.85rem; background: rgba(0,210,255,0.06); border: 1px solid rgba(0,210,255,0.14); border-radius: 99px; font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); cursor: default; transition: var(--transition); }
+    .chip:hover { transform: translateY(-3px); background: var(--cyan-dim); border-color: var(--cyan); color: var(--text-primary); box-shadow: 0 4px 14px rgba(0,210,255,0.2); }
+    .chip i { font-size: 0.7rem; color: var(--cyan); }
+
+    /* Projects */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: 1.5rem; }
+    .project-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); overflow: hidden; transition: var(--transition); display: flex; flex-direction: column; }
+    .project-card:hover { border-color: rgba(0,210,255,0.3); box-shadow: 0 0 0 1px rgba(0,210,255,0.08),0 24px 56px rgba(0,0,0,0.5); transform: translateY(-6px); }
+    .project-thumb { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; }
+    .project-thumb-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; transition: transform 0.5s ease; }
+    .project-card:hover .project-thumb-inner { transform: scale(1.1); }
+    .project-thumb-overlay { position: absolute; inset: 0; background: linear-gradient(180deg,transparent 40%,rgba(10,13,20,0.9) 100%); }
+    .project-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.85rem; }
+    .project-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--cyan); background: var(--cyan-dim); border-radius: 99px; padding: 0.2rem 0.6rem; }
+    .project-name { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
+    .project-desc { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.6; flex: 1; margin-bottom: 1.25rem; }
+    .project-links { display: flex; gap: 0.6rem; }
+    .project-link { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 0.9rem; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 600; text-decoration: none; transition: var(--transition); }
+    .project-link-demo { background: var(--cyan-dim); color: var(--cyan); border: 1px solid rgba(0,210,255,0.25); }
+    .project-link-demo:hover { background: var(--cyan); color: var(--bg-base); }
+    .project-link-github { background: var(--glass-bg); color: var(--text-secondary); border: 1px solid var(--glass-border); }
+    .project-link-github:hover { border-color: rgba(0,210,255,0.3); color: var(--text-primary); }
+
+    /* Contact */
+    #contact { background: var(--bg-surface); }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+    .contact-info-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+    .contact-icon-wrap { width: 44px; height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center; background: var(--cyan-dim); border-radius: var(--radius-sm); font-size: 1rem; color: var(--cyan); border: 1px solid rgba(0,210,255,0.2); }
+    .contact-info-label { font-size: 0.73rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 0.25rem; }
+    .contact-info-value { font-size: 0.9rem; color: var(--text-primary); font-weight: 500; }
+    .contact-info-value a { color: var(--cyan); text-decoration: none; }
+    .contact-info-value a:hover { text-decoration: underline; }
+    .contact-socials { display: flex; gap: 0.75rem; margin-top: 2rem; }
+    .social-btn { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-secondary); font-size: 1rem; text-decoration: none; transition: var(--transition); }
+    .social-btn:hover { background: var(--cyan-dim); border-color: var(--cyan); color: var(--cyan); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,210,255,0.2); }
+    .contact-form { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 2.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 0.45rem; }
+    .form-control { width: 100%; padding: 0.85rem 1.1rem; background: rgba(0,0,0,0.35); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); font-family: var(--font); font-size: 0.9rem; color: var(--text-primary); outline: none; transition: var(--transition); -webkit-appearance: none; }
+    .form-control::placeholder { color: var(--text-muted); }
+    .form-control:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,210,255,0.12); }
+    textarea.form-control { resize: vertical; min-height: 130px; }
+    .btn-form { width: 100%; padding: 0.9rem; background: linear-gradient(135deg,#00D2FF 0%,#0099CC 100%); color: var(--bg-base); font-family: var(--font); font-size: 0.95rem; font-weight: 700; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .btn-form:hover { box-shadow: 0 0 30px rgba(0,210,255,0.45); transform: translateY(-2px); }
+    .btn-form:active { transform: translateY(0); }
+    .form-status { font-size: 0.83rem; margin-top: 0.75rem; text-align: center; min-height: 1.2rem; color: #00FF94; }
+
+    /* Footer */
+    footer { padding: 2rem 5%; border-top: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .footer-copy { font-size: 0.82rem; color: var(--text-muted); }
+    .footer-copy span { color: var(--cyan); }
+    .footer-back-top { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); text-decoration: none; padding: 0.4rem 0.9rem; border: 1px solid var(--glass-border); border-radius: 99px; transition: var(--transition); }
+    .footer-back-top:hover { color: var(--cyan); border-color: var(--cyan); }
+
+    /* Responsive */
+    @media (max-width: 1024px) { .skills-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .section { padding: 80px 5% 60px; }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+      .hero-sub { margin: 0 auto 2rem; }
+      .hero-actions { justify-content: center; }
+      .hero-badges { justify-content: center; }
+      .hero-visual { order: -1; }
+      .profile-frame { width: 240px; height: 240px; }
+      .profile-badge-1 { right: -5%; }
+      .profile-badge-2 { left: -5%; }
+      .timeline-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) { .projects-grid { grid-template-columns: 1fr; } .profile-frame { width: 200px; height: 200px; } .hero-name { font-size: 2.3rem; } }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; } .reveal { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body>
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="page-wrap">
+
+    <!-- NAV -->
+    <header>
+      <nav id="navbar" role="navigation" aria-label="Main navigation">
+        <a href="#hero" class="nav-logo">portfolio<span>.</span></a>
+        <ul class="nav-links" role="list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="https://www.linkedin.com/in/abinaya011105" target="_blank" rel="noopener noreferrer" class="nav-cta"><i class="fa-brands fa-linkedin" aria-hidden="true"></i>&nbsp;LinkedIn Profile</a></li>
+        </ul>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+      <nav id="mobileMenu" class="mobile-menu" aria-label="Mobile navigation">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="https://www.linkedin.com/in/abinaya011105" target="_blank" rel="noopener noreferrer" style="color:var(--cyan)"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn Profile</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section id="hero" aria-label="Hero introduction">
+        <div class="hero-inner">
+          <div class="hero-left reveal">
+            <div class="status-pill" role="status"><span class="status-dot" aria-hidden="true"></span>Available for Opportunities</div>
+            <p class="hero-greeting">Hi there, I'm</p>
+            <h1 class="hero-name">Abinaya</h1>
+            <p class="hero-sub">Passionate <strong>Web &amp; Mobile App Developer</strong> and <strong>UI/UX Designer</strong> &#8212; crafting clean, modern digital experiences from Figma prototype to live product. B.E. Computer Science Engineering student.</p>
+            <div class="hero-actions">
+              <a href="#contact" class="btn btn-cyan" id="heroCta"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i>Get In Touch</a>
+              <a href="cv.pdf" download class="btn btn-ghost" id="heroDownloadCV"><i class="fa-solid fa-download" aria-hidden="true"></i>Download CV</a>
+            </div>
+            <div class="hero-badges">
+              <a href="mailto:abinbala2005@gmail.com" class="hero-badge"><i class="fa-solid fa-envelope" aria-hidden="true"></i>abinbala2005@gmail.com</a>
+              <a href="https://www.linkedin.com/in/abinaya011105" target="_blank" rel="noopener noreferrer" class="hero-badge"><i class="fa-brands fa-linkedin" aria-hidden="true"></i>LinkedIn</a>
+            </div>
+          </div>
+          <div class="hero-visual reveal" style="transition-delay:0.2s" aria-hidden="true">
+            <div class="profile-frame">
+              <div class="profile-ring"></div>
+              <div class="profile-ring-mask"></div>
+              <div class="profile-img-wrap">
+                <img src="img/my pic.jpg" alt="Photo of Abinaya" loading="eager" />
+              </div>
+              <div class="profile-badge profile-badge-1"><i class="fa-solid fa-code"></i>Web Dev</div>
+              <div class="profile-badge profile-badge-2"><i class="fa-solid fa-mobile-screen"></i>App Dev</div>
+            </div>
+          </div>
         </div>
-</section>
-</section>
-<!-- about section -->
-<section id="about">
-<section class="about" id="about">
-  <div class="about-container">
-    <div class="about-image">
-    </div>
-    <div class="about-text">
-     <center> <h1>About Me</h1></center>
-      <p>
-        Hi, I’m <strong>Abinaya</strong>, a passionate Web Developer focused on
-        building modern, responsive, and user-friendly websites. 
-        I love turning ideas into clean, functional designs using HTML, CSS, and JavaScript.
-      </p>
-      <p>
-        My goal is to grow as a full-stack developer and contribute to innovative 
-        digital solutions while continuously learning new technologies.
-      </p>
-<div class="skill-cards">
+      </section>
 
-  <div class="card">
-    <h3>Education</h3>
-    <ul>
-      <li><strong>B.E Computer Science Engineering </strong> New Prince Shri Bhavani College of Engineering and Technology (2024-2027).</li>
-      <li>Relevant Coursework: Web Development, App Development.</li>
-    </ul>
-  </div>
+      <!-- About anchor -->
+      <div id="about" style="position:relative;top:-70px;visibility:hidden" aria-hidden="true"></div>
 
-<div class="card">
-    <h3>Work Experience</h3>
-    <ul>
-      <li>Intern at<strong> National Institute of Wind Energy [NIWE]</strong> | Startups (July 2024 - Aug 2024)  
-          → Developed dynamic website using PHP.</li>
-      <li>Intern at <strong> Nipix Technology</strong> | Startups (Jun 2025 - July 2025)  
-          → Mobile app development using Flutter.</li>
-    </ul>
-  </div>
+      <!-- EXPERIENCE -->
+      <section id="experience" class="section" aria-labelledby="expHeading">
+        <div class="section-header reveal">
+          <div class="section-label"><i class="fa-solid fa-briefcase" aria-hidden="true"></i>Background</div>
+          <h2 class="section-title" id="expHeading">Education &amp; Experience</h2>
+          <p class="section-subtitle">Academic foundation and hands-on industry internship experience.</p>
+        </div>
+        <div class="timeline-grid">
+          <div class="reveal" style="transition-delay:0.1s">
+            <div class="timeline-col-title"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>Education</div>
+            <article class="timeline-item">
+              <div class="tl-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i>2024 &#8211; 2027</div>
+              <div class="tl-title">B.E. Computer Science Engineering</div>
+              <div class="tl-org"><i class="fa-solid fa-building-columns" aria-hidden="true"></i>New Prince Shri Bhavani College of Engineering &amp; Technology</div>
+              <ul class="tl-bullets">
+                <li>Pursuing full-stack web development, data structures, and algorithms.</li>
+                <li>Relevant coursework: Web Development, Mobile App Dev, DBMS.</li>
+                <li>Active member of the college tech community and coding clubs.</li>
+              </ul>
+            </article>
+            <article class="timeline-item">
+              <div class="tl-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i>2021 &#8211; 2024</div>
+              <div class="tl-title">Higher Secondary &#8212; Computer Science</div>
+              <div class="tl-org"><i class="fa-solid fa-school" aria-hidden="true"></i>Tamil Nadu State Board</div>
+              <ul class="tl-bullets">
+                <li>Specialized in Computer Science and Mathematics.</li>
+                <li>Built first static websites as personal projects during this period.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="reveal" style="transition-delay:0.2s">
+            <div class="timeline-col-title"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i>Work Experience</div>
+            <article class="timeline-item">
+              <div class="tl-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i>Jun 2025 &#8211; Jul 2025</div>
+              <div class="tl-title">Mobile App Developer Intern</div>
+              <div class="tl-org"><i class="fa-solid fa-building" aria-hidden="true"></i>Nipix Technology &#8212; Startup</div>
+              <ul class="tl-bullets">
+                <li>Developed cross-platform mobile features using <strong>Flutter &amp; Dart</strong>.</li>
+                <li>Collaborated with design team to implement responsive UI components.</li>
+                <li>Integrated REST APIs and managed application state efficiently.</li>
+                <li>Participated in Agile sprints, code reviews, and daily stand-ups.</li>
+              </ul>
+            </article>
+            <article class="timeline-item">
+              <div class="tl-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i>Jul 2024 &#8211; Aug 2024</div>
+              <div class="tl-title">Web Developer Intern</div>
+              <div class="tl-org"><i class="fa-solid fa-wind" aria-hidden="true"></i>National Institute of Wind Energy (NIWE)</div>
+              <ul class="tl-bullets">
+                <li>Developed and maintained dynamic website modules using <strong>PHP</strong>.</li>
+                <li>Designed database schemas and built CRUD operations in <strong>MySQL</strong>.</li>
+                <li>Improved page load performance and cross-browser compatibility.</li>
+                <li>Delivered features meeting government-organization standards.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
 
-</div>
+      <!-- SKILLS -->
+      <section id="skills" class="section" aria-labelledby="skillsHeading">
+        <div class="section-header reveal">
+          <div class="section-label"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>Expertise</div>
+          <h2 class="section-title" id="skillsHeading">Technical Skills</h2>
+          <p class="section-subtitle">Technologies and tools I use to bring ideas to life.</p>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-category-card reveal" style="transition-delay:0.05s">
+            <div class="skill-cat-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></div>
+            <div class="skill-cat-name">Frontend Development</div>
+            <div class="skill-chips" role="list" aria-label="Frontend skills">
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-brands fa-html5" aria-hidden="true"></i>HTML5</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-brands fa-css3-alt" aria-hidden="true"></i>CSS3</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-brands fa-js" aria-hidden="true"></i>JavaScript</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-wind" aria-hidden="true"></i>Tailwind CSS</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-palette" aria-hidden="true"></i>Responsive Design</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-paintbrush" aria-hidden="true"></i>UI/UX Design</span>
+            </div>
+          </div>
+          <div class="skill-category-card reveal" style="transition-delay:0.1s">
+            <div class="skill-cat-icon" aria-hidden="true"><i class="fa-solid fa-server"></i></div>
+            <div class="skill-cat-name">Backend Development</div>
+            <div class="skill-chips" role="list" aria-label="Backend skills">
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-brands fa-php" aria-hidden="true"></i>PHP</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-brands fa-node-js" aria-hidden="true"></i>Node.js</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-brands fa-python" aria-hidden="true"></i>Python</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-database" aria-hidden="true"></i>MySQL</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-leaf" aria-hidden="true"></i>MongoDB</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-plug" aria-hidden="true"></i>REST APIs</span>
+            </div>
+          </div>
+          <div class="skill-category-card reveal" style="transition-delay:0.15s">
+            <div class="skill-cat-icon" aria-hidden="true"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <div class="skill-cat-name">Mobile &amp; Tools</div>
+            <div class="skill-chips" role="list" aria-label="Mobile and tool skills">
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-feather-pointed" aria-hidden="true"></i>Flutter</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-code" aria-hidden="true"></i>Dart</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-brands fa-git-alt" aria-hidden="true"></i>Git &amp; GitHub</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-terminal" aria-hidden="true"></i>VS Code</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-cubes" aria-hidden="true"></i>Firebase</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-pen-ruler" aria-hidden="true"></i>Figma</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-object-group" aria-hidden="true"></i>Wireframing</span>
+              <span class="chip" role="listitem" tabindex="0"><i class="fa-solid fa-vector-square" aria-hidden="true"></i>Prototyping</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    </div>
-  </div>
+      <!-- PROJECTS -->
+      <section id="projects" class="section" style="background:var(--bg-surface)" aria-labelledby="projectsHeading">
+        <div class="section-header reveal">
+          <div class="section-label"><i class="fa-solid fa-rocket" aria-hidden="true"></i>Portfolio</div>
+          <h2 class="section-title" id="projectsHeading">Featured Projects</h2>
+          <p class="section-subtitle">A selection of real-world projects built with passion and purpose.</p>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card reveal" style="transition-delay:0.05s">
+            <div class="project-thumb"><div class="project-thumb-inner" style="background:linear-gradient(135deg,#0D1117,#112233)">&#127760;</div><div class="project-thumb-overlay" aria-hidden="true"></div></div>
+            <div class="project-body">
+              <div class="project-tags"><span class="project-tag">PHP</span><span class="project-tag">MySQL</span><span class="project-tag">HTML/CSS</span></div>
+              <h3 class="project-name">NIWE Dynamic Website</h3>
+              <p class="project-desc">Government-level dynamic website at the National Institute of Wind Energy. Features CRUD operations, admin dashboard, and fully responsive layout built with PHP and MySQL.</p>
+              <div class="project-links">
+                <a href="#" class="project-link project-link-demo"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>Live Demo</a>
+                <a href="https://github.com/abinbala2005" target="_blank" rel="noopener noreferrer" class="project-link project-link-github"><i class="fa-brands fa-github" aria-hidden="true"></i>Source</a>
+              </div>
+            </div>
+          </article>
+          <article class="project-card reveal" style="transition-delay:0.1s">
+            <div class="project-thumb"><div class="project-thumb-inner" style="background:linear-gradient(135deg,#0D1117,#1a1133)">&#128241;</div><div class="project-thumb-overlay" aria-hidden="true"></div></div>
+            <div class="project-body">
+              <div class="project-tags"><span class="project-tag">Flutter</span><span class="project-tag">Dart</span><span class="project-tag">Firebase</span></div>
+              <h3 class="project-name">Cross-Platform Mobile App</h3>
+              <p class="project-desc">Feature-rich cross-platform mobile application developed at Nipix Technology. REST API integration, responsive UI components, and real-time state management using Flutter.</p>
+              <div class="project-links">
+                <a href="#" class="project-link project-link-demo"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>Live Demo</a>
+                <a href="https://github.com/abinbala2005" target="_blank" rel="noopener noreferrer" class="project-link project-link-github"><i class="fa-brands fa-github" aria-hidden="true"></i>Source</a>
+              </div>
+            </div>
+          </article>
+          <article class="project-card reveal" style="transition-delay:0.15s">
+            <div class="project-thumb"><div class="project-thumb-inner" style="background:linear-gradient(135deg,#0D1117,#002222)">&#128188;</div><div class="project-thumb-overlay" aria-hidden="true"></div></div>
+            <div class="project-body">
+              <div class="project-tags"><span class="project-tag">HTML</span><span class="project-tag">CSS</span><span class="project-tag">JavaScript</span></div>
+              <h3 class="project-name">Personal Portfolio Website</h3>
+              <p class="project-desc">Fully responsive, animated personal portfolio showcasing skills, projects, and experience. Dark glassmorphism aesthetic with smooth micro-animations throughout.</p>
+              <div class="project-links">
+                <a href="#" class="project-link project-link-demo"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>Live Demo</a>
+                <a href="https://github.com/abinbala2005" target="_blank" rel="noopener noreferrer" class="project-link project-link-github"><i class="fa-brands fa-github" aria-hidden="true"></i>Source</a>
+              </div>
+            </div>
+          </article>
+          <article class="project-card reveal" style="transition-delay:0.2s">
+            <div class="project-thumb"><div class="project-thumb-inner" style="background:linear-gradient(135deg,#0D1117,#112200)">&#128013;</div><div class="project-thumb-overlay" aria-hidden="true"></div></div>
+            <div class="project-body">
+              <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">JavaScript</span><span class="project-tag">Node.js</span></div>
+              <h3 class="project-name">Python Automation Tool</h3>
+              <p class="project-desc">Lightweight automation utility built with Python for processing and organizing data tasks. Includes a web monitoring dashboard built with Node.js.</p>
+              <div class="project-links">
+                <a href="#" class="project-link project-link-demo"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>Live Demo</a>
+                <a href="https://github.com/abinbala2005" target="_blank" rel="noopener noreferrer" class="project-link project-link-github"><i class="fa-brands fa-github" aria-hidden="true"></i>Source</a>
+              </div>
+            </div>
+          </article>
 
-</section>
-</section>
+          <article class="project-card reveal" style="transition-delay:0.25s">
+            <div class="project-thumb"><div class="project-thumb-inner" style="background:linear-gradient(135deg,#0D1117,#1a0d33)">&#127912;</div><div class="project-thumb-overlay" aria-hidden="true"></div></div>
+            <div class="project-body">
+              <div class="project-tags"><span class="project-tag">Figma</span><span class="project-tag">UI/UX</span><span class="project-tag">Prototyping</span></div>
+              <h3 class="project-name">UI/UX Design &#8212; Figma</h3>
+              <p class="project-desc">End-to-end UI/UX design projects created in Figma &#8212; including wireframes, component libraries, high-fidelity mockups, and interactive prototypes for web and mobile interfaces.</p>
+              <div class="project-links">
+                <a href="#" class="project-link project-link-demo"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>View Designs</a>
+                <a href="https://github.com/abinbala2005" target="_blank" rel="noopener noreferrer" class="project-link project-link-github"><i class="fa-brands fa-github" aria-hidden="true"></i>Source</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
 
-  <!-- Skills Section -->
-   <section id="skills">
-  <section id="skills">
-    <center> <h1>Skills</h1></center>
+      <!-- CONTACT -->
+      <section id="contact" class="section" aria-labelledby="contactHeading">
+        <div class="section-header reveal">
+          <div class="section-label"><i class="fa-solid fa-comments" aria-hidden="true"></i>Let's Talk</div>
+          <h2 class="section-title" id="contactHeading">Get In Touch</h2>
+          <p class="section-subtitle">Have an opportunity or project idea? My inbox is always open.</p>
+        </div>
+        <div class="contact-inner">
+          <div class="reveal">
+            <div class="contact-info-item">
+              <div class="contact-icon-wrap" aria-hidden="true"><i class="fa-solid fa-envelope"></i></div>
+              <div><div class="contact-info-label">Email</div><div class="contact-info-value"><a href="mailto:abinbala2005@gmail.com">abinbala2005@gmail.com</a></div></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon-wrap" aria-hidden="true"><i class="fa-solid fa-phone"></i></div>
+              <div><div class="contact-info-label">Phone</div><div class="contact-info-value"><a href="tel:+919445586014">+91 94455 86014</a></div></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon-wrap" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
+              <div><div class="contact-info-label">Location</div><div class="contact-info-value">Chennai, Tamil Nadu, India</div></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon-wrap" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
+              <div><div class="contact-info-label">Education</div><div class="contact-info-value">B.E. CSE &#183; 2024&#8211;2027</div></div>
+            </div>
+            <div class="contact-socials" aria-label="Social media links">
+              <a href="https://www.linkedin.com/in/abinaya011105" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
+              <a href="https://www.instagram.com/abi___11.11" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+              <a href="https://wa.me/qr/IUAYULFRDYM7M1" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+              <a href="https://github.com/abinbala2005" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+            </div>
+          </div>
+          <div class="reveal" style="transition-delay:0.15s">
+            <form class="contact-form" id="contactForm" novalidate aria-label="Contact form">
+              <div class="form-row">
+                <div class="form-group"><label for="formName">Name</label><input type="text" id="formName" name="name" class="form-control" placeholder="Your full name" required autocomplete="name" /></div>
+                <div class="form-group"><label for="formEmail">Email</label><input type="email" id="formEmail" name="email" class="form-control" placeholder="you@example.com" required autocomplete="email" /></div>
+              </div>
+              <div class="form-group"><label for="formSubject">Subject</label><input type="text" id="formSubject" name="subject" class="form-control" placeholder="What is this about?" /></div>
+              <div class="form-group"><label for="formMessage">Message</label><textarea id="formMessage" name="message" class="form-control" placeholder="Write your message here&#8230;" required></textarea></div>
+              <button type="submit" class="btn-form" id="formSubmitBtn"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i>Send Message</button>
+              <div class="form-status" id="formStatus" role="alert" aria-live="polite"></div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
 
-    <div class="skills-section">
-      <div class="skills-category">Frontend</div>
-      <div class="skills-list">
-        <span class="skill-pill">Html</span>
-        <span class="skill-pill">css</span>
-        <span class="skill-pill">TailwindCSS</span>
-        <span class="skill-pill">JavaScript</span>
-      </div>
-      <div class="skills-category">Backend</div>
-      <div class="skills-list">
-        <span class="skill-pill">Node.js</span>
-        <span class="skill-pill">Python</span>
-        <span class="skill-pill">MongoDB</span>
-      </div>
-    </div>
-    <div class="resume-btn">
-      <a href="cv.pdf" class="btn btn-primary">Download Resume</a>
-    </div>
-  </section>
-  </section>
- <!-- Contact Section -->
-<section id="contact">
- <section class="contact">
-    <h1>Get In Touch</h1>
-    <form>
-      <input type="text" placeholder="Name" required>
-      <input type="email" placeholder="example@gmail.com" required>
-      <textarea placeholder="Your Message.." required></textarea>
-  <button type="submit" class="btn btn-primary">Send Message</button>
-    </form>
-  </section>
-  <div class="hero-social">
-    <footer class="footer-social">
-        <a href="https://www.instagram.com/abi___11.11?igsh=MXNhcXoxZmtweG54OQ=="  class="social-icon"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/abinaya011105?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"  class="social-icon"><i class="fab fa-linkedin"></i></a>
-        <a href="https://wa.me/qr/IUAYULFRDYM7M1" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-        
+    <footer role="contentinfo">
+      <p class="footer-copy">&copy; 2025 <span>Abinaya</span>. Crafted with <span style="color:#ff6b6b">&#9829;</span> and modern web technologies.</p>
+      <a href="#hero" class="footer-back-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i>Back to Top</a>
     </footer>
-  </div> 
-  </section>
-  </section>
-   </body>
+  </div>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const navLinkEls = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+    const allSections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+      let current = '';
+      allSections.forEach(sec => { if (window.scrollY >= sec.offsetTop - 100) current = sec.id; });
+      navLinkEls.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+    }, { passive: true });
+
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => { mobileMenu.classList.remove('open'); hamburger.classList.remove('open'); hamburger.setAttribute('aria-expanded','false'); });
+    });
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    const contactForm = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    const submitBtn = document.getElementById('formSubmitBtn');
+    contactForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('formName').value.trim();
+      const email = document.getElementById('formEmail').value.trim();
+      const message = document.getElementById('formMessage').value.trim();
+      if (!name || !email || !message) { formStatus.style.color='#ff6b6b'; formStatus.textContent='Please fill in all required fields.'; return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { formStatus.style.color='#ff6b6b'; formStatus.textContent='Please enter a valid email address.'; return; }
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Sending\u2026';
+      setTimeout(() => {
+        formStatus.style.color='#00FF94';
+        formStatus.textContent='\u2713 Message sent! I\u2019ll get back to you soon.';
+        submitBtn.disabled=false;
+        submitBtn.innerHTML='<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send Message';
+        contactForm.reset();
+      }, 1800);
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const id = this.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (target) { e.preventDefault(); window.scrollTo({ top: target.offsetTop - 75, behavior: 'smooth' }); }
+      });
+    });
+  </script>
+</body>
 </html>
